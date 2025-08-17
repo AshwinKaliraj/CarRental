@@ -139,3 +139,44 @@ void RegisteredUser() {
     cout << "Making payment\n";
     cout << "Logout complete\n";
 }
+void NewUser() {
+    cout << "\nNew User Registration \n";
+    string name = askLine("Enter name: ");
+    string email = askLine("Enter email: ");
+    string pass  = askLine("Set password: ");
+
+    // Save user details into DB
+    DB(name, email, pass);
+
+    cout << "Registration Completed for " << name << ".\n";
+
+    cout << "Proceed to login\n";
+    string storedPass = pass;
+    Login(storedPass);
+}
+
+void Login(string &password) {
+    cout << "\nLogin \n";
+    string entered;
+    bool success = false;
+
+    do {
+        cout << "Enter password: ";
+        cin >> entered;
+        if (entered == password) {
+            cout << "Login successful\n";
+            success = true;
+        } else {
+            cout << "Incorrect password\n";
+            if (askYesNo("Forgot password?")) {
+                password = askLine("Set new password: ");
+                cout << "Password reset successful\n";
+            }
+        }
+    } while (!success);
+
+    cout << "Looking for desired vehicle\n";
+    cout << "Making payment\n";
+    cout << "Logout complete\n";
+}
+
