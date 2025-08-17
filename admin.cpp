@@ -38,3 +38,8 @@ void DB(const string& name, const string& email, const string& password) {
     db.close();
     cout << "User details saved in DB (users.csv)\n";
 }
+void Admin();
+void AdminActions();
+void RegisteredUser();
+void Login(string &password);
+void NewUser();
