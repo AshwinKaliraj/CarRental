@@ -28,3 +28,13 @@ string askLine(const string& prompt) {
     getline(cin, s);
     return s;
 }
+void DB(const string& name, const string& email, const string& password) {
+    ofstream db("users.csv", ios::app);  
+    if (!db) {
+        cerr << "Error opening users.csv!\n";
+        return;
+    }
+    db << name << "," << email << "," << password << "\n";
+    db.close();
+    cout << "User details saved in DB (users.csv)\n";
+}
