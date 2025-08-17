@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <limits>
-#include <fstream>   // for saving to DB
+#include <fstream>   
 using namespace std;
 
 void clearLine() {
@@ -29,9 +29,9 @@ string askLine(const string& prompt) {
     return s;
 }
 
-// DB save function
-void saveUserToDB(const string& name, const string& email, const string& password) {
-    ofstream db("users.csv", ios::app);  // append mode
+
+void DB(const string& name, const string& email, const string& password) {
+    ofstream db("users.csv", ios::app);  
     if (!db) {
         cerr << "Error opening users.csv!\n";
         return;
@@ -49,7 +49,7 @@ void NewUser();
 
 int main() {
     cout << "Car Rental System \n";
-    cout << "User type? ( 1]Admin,\n 2]Registered User,\n 3]New User\n): ";
+    cout << "User type? ( 1]Admin,\n 2]Registered User,\n 3]New User\n) ";
     int choice;
     cin >> choice;
 
@@ -147,8 +147,8 @@ void NewUser() {
     string email = askLine("Enter email: ");
     string pass  = askLine("Set password: ");
 
-    // Save user details into DB
-    saveUserToDB(name, email, pass);
+    
+    DB(name, email, pass);
 
     cout << "Registration Completed for " << name << ".\n";
 
