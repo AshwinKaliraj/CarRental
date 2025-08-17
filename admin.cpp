@@ -80,6 +80,62 @@ int main() {
         }
     } while (!loggedIn);
 
-    AdminActions(); 
+    ChooseApplication(); 
 }
+}
+void ChooseApplication() {
+    cout << "\n ChooseApplication \n";
+    bool running = true;
+
+    while (running) {
+        cout << "1. Update car library\n";
+        cout << "2. Answer customer enquiries\n";
+        cout << "3. Logout\n";
+        cout << "Choose action: ";
+        int ch;
+        cin >> ch;
+
+        switch (ch) {
+            case 1:
+                cout << "Car library updated successfully\n";
+                break;
+            case 2:
+                cout << "Customer enquiries answered\n";
+                break;
+            case 3:
+                cout << "Logging out\n";
+                running = false;
+                break;
+            default:
+                cout << "Invalid choice\n";
+        }
+    }
+}
+void RegisteredUser() {
+    cout << "\n Registered User \n";
+    string password, correct = "2222";
+    bool loggedIn = false;
+
+    do {
+        cout << "Enter password: ";
+        cin >> password;
+
+        if (password == correct) {
+            cout << "Login successful\n";
+            loggedIn = true;
+        } else {
+            cout << "Password incorrect\n";
+            if (askYesNo("Forgot password?")) {
+                cout << "Requesting new password\n";
+                correct = askLine("Set new password: ");
+                cout << "Password updated, Please login again\n";
+            } else {
+                cout << "Returning to login\n";
+            }
+        }
+    } while (!loggedIn);
+
+    cout << "Looking for desired vehicle\n";
+    cout << "Making payment\n";
+    cout << "Logout complete\n";
 }
