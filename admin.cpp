@@ -39,7 +39,7 @@ void DB(const string& name, const string& email, const string& password) {
     cout << "User details saved in DB (users.csv)\n";
 }
 void Admin();
-void AdminActions();
+void ChooseApplication();
 void RegisteredUser();
 void Login(string &password);
 void NewUser();
@@ -62,4 +62,24 @@ int main() {
 
     cout << "\n End of Program \n";
     return 0;
+    
+    void Admin()
+     {
+    cout << "\n Admin Login \n";
+    string password, correct = "111";
+
+    bool loggedIn = false;
+    do {
+        cout << "Enter admin password: ";
+        cin >> password;
+        if (password == correct) {
+            cout << "Login successful\n";
+            loggedIn = true;
+        } else {
+            cout << "Login failed\n";
+        }
+    } while (!loggedIn);
+
+    AdminActions(); 
+}
 }
