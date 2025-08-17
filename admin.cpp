@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <limits>
-#include <fstream>  
+#include <fstream>   // for saving to DB
 using namespace std;
 
 void clearLine() {
@@ -17,7 +17,7 @@ bool askYesNo(const string& prompt) {
         c = tolower(c);
         if (c == 'y') return true;
         if (c == 'n') return false;
-        cout << "Please enter y or n\n";
+        cout << "Please enter y or n.\n";
     }
 }
 
@@ -28,8 +28,10 @@ string askLine(const string& prompt) {
     getline(cin, s);
     return s;
 }
-void DB(const string& name, const string& email, const string& password) {
-    ofstream db("users.csv", ios::app);  
+
+// DB save function
+void saveUserToDB(const string& name, const string& email, const string& password) {
+    ofstream db("users.csv", ios::app);  // append mode
     if (!db) {
         cerr << "Error opening users.csv!\n";
         return;
@@ -38,6 +40,7 @@ void DB(const string& name, const string& email, const string& password) {
     db.close();
     cout << "User details saved in DB (users.csv)\n";
 }
+
 void Admin();
 void ChooseApplication();
 void RegisteredUser();
@@ -46,25 +49,22 @@ void NewUser();
 
 int main() {
     cout << "Car Rental System \n";
-    cout << "User type? (1=Admin\n, 2=Registered User\n, 3=New User): ";
+    cout << "User type? ( 1]Admin,\n 2]Registered User,\n 3]New User\n): ";
     int choice;
     cin >> choice;
 
     switch (choice) {
-        case 1: Admin();
-        break;          
-        case 2: RegisteredUser(); 
-        break; 
-        case 3: NewUser(); 
-        break;        
+        case 1: Admin(); break;          
+        case 2: RegisteredUser(); break; 
+        case 3: NewUser(); break;        
         default: cout << "Invalid choice\n";
     }
 
     cout << "\n End of Program \n";
     return 0;
-    
-    void Admin()
-     {
+}
+
+void Admin() {
     cout << "\n Admin Login \n";
     string password, correct = "111";
 
@@ -82,7 +82,7 @@ int main() {
 
     ChooseApplication(); 
 }
-}
+
 void ChooseApplication() {
     cout << "\n ChooseApplication \n";
     bool running = true;
@@ -111,6 +111,7 @@ void ChooseApplication() {
         }
     }
 }
+
 void RegisteredUser() {
     cout << "\n Registered User \n";
     string password, correct = "2222";
@@ -139,6 +140,7 @@ void RegisteredUser() {
     cout << "Making payment\n";
     cout << "Logout complete\n";
 }
+
 void NewUser() {
     cout << "\nNew User Registration \n";
     string name = askLine("Enter name: ");
@@ -146,7 +148,7 @@ void NewUser() {
     string pass  = askLine("Set password: ");
 
     // Save user details into DB
-    DB(name, email, pass);
+    saveUserToDB(name, email, pass);
 
     cout << "Registration Completed for " << name << ".\n";
 
@@ -179,4 +181,3 @@ void Login(string &password) {
     cout << "Making payment\n";
     cout << "Logout complete\n";
 }
-
