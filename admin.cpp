@@ -49,7 +49,7 @@ void NewUser();
 
 int main() {
     cout << "Car Rental System \n";
-    cout << "User type? ( 1]Admin,\n 2]Registered User,\n 3]New User\n) ";
+    cout << "User type?  1]Admin,\n 2]Registered User,\n 3]New User\n ";
     int choice;
     cin >> choice;
 
