@@ -43,3 +43,23 @@ void AdminActions();
 void RegisteredUser();
 void Login(string &password);
 void NewUser();
+
+int main() {
+    cout << "Car Rental System \n";
+    cout << "User type? (1=Admin\n, 2=Registered User\n, 3=New User): ";
+    int choice;
+    cin >> choice;
+
+    switch (choice) {
+        case 1: Admin();
+        break;          
+        case 2: RegisteredUser(); 
+        break; 
+        case 3: NewUser(); 
+        break;        
+        default: cout << "Invalid choice\n";
+    }
+
+    cout << "\n End of Program \n";
+    return 0;
+}
