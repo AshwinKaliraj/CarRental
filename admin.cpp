@@ -1,37 +1,10 @@
 #include <iostream>
 #include <string>
-#include <limits>
-#include <fstream>   
+#include <fstream>
 using namespace std;
 
-void clearLine() {
-    cin.clear();
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');
-}
-
-bool askYesNo(const string& prompt) {
-    char c;
-    while (true) {
-        cout << prompt << " (y/n): ";
-        if (!(cin >> c)) { clearLine(); continue; }
-        c = tolower(c);
-        if (c == 'y') return true;
-        if (c == 'n') return false;
-        cout << "Please enter y or n.\n";
-    }
-}
-
-string askLine(const string& prompt) {
-    cout << prompt;
-    clearLine();
-    string s;
-    getline(cin, s);
-    return s;
-}
-
-
 void DB(const string& name, const string& email, const string& password) {
-    ofstream db("users.csv", ios::app);  
+    ofstream db("users.csv", ios::app);
     if (!db) {
         cerr << "Error opening users.csv!\n";
         return;
@@ -48,27 +21,27 @@ void Login(string &password);
 void NewUser();
 
 int main() {
-    cout << "Car Rental System \n";
-    cout << "User type?  1]Admin,\n 2]Registered User,\n 3]New User\n ";
+    cout << "Car Rental System\n";
+    cout << "User type? 1]Admin, 2]Registered User, 3]New User\n";
     int choice;
     cin >> choice;
 
     switch (choice) {
-        case 1: Admin(); break;          
-        case 2: RegisteredUser(); break; 
-        case 3: NewUser(); break;        
+        case 1: Admin(); break;
+        case 2: RegisteredUser(); break;
+        case 3: NewUser(); break;
         default: cout << "Invalid choice\n";
     }
 
-    cout << "\n End of Program \n";
+    cout << "\nEnd of Program\n";
     return 0;
 }
 
 void Admin() {
-    cout << "\n Admin Login \n";
+    cout << "\nAdmin Login\n";
     string password, correct = "111";
-
     bool loggedIn = false;
+
     do {
         cout << "Enter admin password: ";
         cin >> password;
@@ -80,11 +53,11 @@ void Admin() {
         }
     } while (!loggedIn);
 
-    ChooseApplication(); 
+    ChooseApplication();
 }
 
 void ChooseApplication() {
-    cout << "\n ChooseApplication \n";
+    cout << "\nChooseApplication\n";
     bool running = true;
 
     while (running) {
@@ -96,26 +69,19 @@ void ChooseApplication() {
         cin >> ch;
 
         switch (ch) {
-            case 1:
-                cout << "Car library updated successfully\n";
-                break;
-            case 2:
-                cout << "Customer enquiries answered\n";
-                break;
-            case 3:
-                cout << "Logging out\n";
-                running = false;
-                break;
-            default:
-                cout << "Invalid choice\n";
+            case 1: cout << "Car library updated successfully\n"; break;
+            case 2: cout << "Customer enquiries answered\n"; break;
+            case 3: cout << "Logging out\n"; running = false; break;
+            default: cout << "Invalid choice\n";
         }
     }
 }
 
 void RegisteredUser() {
-    cout << "\n Registered User \n";
+    cout << "\nRegistered User\n";
     string password, correct = "2222";
     bool loggedIn = false;
+    char choice;
 
     do {
         cout << "Enter password: ";
@@ -126,12 +92,12 @@ void RegisteredUser() {
             loggedIn = true;
         } else {
             cout << "Password incorrect\n";
-            if (askYesNo("Forgot password?")) {
-                cout << "Requesting new password\n";
-                correct = askLine("Set new password: ");
+            cout << "Forgot password? (y/n): ";
+            cin >> choice;
+            if (choice == 'y' || choice == 'Y') {
+                cout << "Set new password: ";
+                cin >> correct;
                 cout << "Password updated, Please login again\n";
-            } else {
-                cout << "Returning to login\n";
             }
         }
     } while (!loggedIn);
@@ -142,25 +108,30 @@ void RegisteredUser() {
 }
 
 void NewUser() {
-    cout << "\nNew User Registration \n";
-    string name = askLine("Enter name: ");
-    string email = askLine("Enter email: ");
-    string pass  = askLine("Set password: ");
+    cout << "\nNew User Registration\n";
+    string name, email, pass;
 
-    
+    cout << "Enter name: ";
+    cin >> name;
+    cout << "Enter email: ";
+    cin >> email;
+    cout << "Set password: ";
+    cin >> pass;
+
     DB(name, email, pass);
 
-    cout << "Registration Completed for " << name << ".\n";
-
+    cout << "Registration Completed for " << name << "\n";
     cout << "Proceed to login\n";
+
     string storedPass = pass;
     Login(storedPass);
 }
 
 void Login(string &password) {
-    cout << "\nLogin \n";
+    cout << "\nLogin\n";
     string entered;
     bool success = false;
+    char choice;
 
     do {
         cout << "Enter password: ";
@@ -170,8 +141,11 @@ void Login(string &password) {
             success = true;
         } else {
             cout << "Incorrect password\n";
-            if (askYesNo("Forgot password?")) {
-                password = askLine("Set new password: ");
+            cout << "Forgot password? (y/n): ";
+            cin >> choice;
+            if (choice == 'y' || choice == 'Y') {
+                cout << "Set new password: ";
+                cin >> password;
                 cout << "Password reset successful\n";
             }
         }
